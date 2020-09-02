@@ -9,3 +9,15 @@ pip install --upgrade ansible
 ansible --version
 ansible 2.9.13
 ```
+
+Python 2.7 already installed
+
+```
+python --version
+Python 2.7.5
+```
+
+PyVmomi required
+```
+pip install -U pyvmomi
+```
