@@ -17,7 +17,7 @@ python --version
 Python 2.7.5
 ```
 
-PyVmomi required
+PyVmomi required - pyVmomi is the Python SDK for the VMware vSphere AP
 ```
 pip install -U pyvmomi
 ```
