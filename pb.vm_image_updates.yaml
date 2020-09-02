@@ -1,0 +1,17 @@
+- name: Playbook to update Windows 10 gold image for Horizon 7
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - pb-vars.yaml
+    
+  tasks:
+  
+  - name: Power on VM
+    vmware_guest:
+      hostname: "{{ vcenter_server }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ vcenter_datacenter }}"
+      validate_certs: no
+      name: "{{ template_name }}"
+    when: template_name is defined
