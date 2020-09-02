@@ -14,4 +14,7 @@
       datacenter: "{{ vcenter_datacenter }}"
       validate_certs: no
       name: "{{ template_name }}"
+      state: poweredon
+      wait_for_ip_address: yes
     when: template_name is defined
+    register: vm_out
