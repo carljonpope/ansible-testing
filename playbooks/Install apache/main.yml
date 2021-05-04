@@ -1,0 +1,29 @@
+---
+- name: Install Apache
+  hosts: app
+
+  tasks:
+    - name: Install Apache
+      become: true
+      apt: 
+        name: apache2
+        state: present
+
+    - name: Copy config file
+      become: true
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: root
+        group: root
+        mode: 0644
+      with_items:
+        - src: /Users/carl/Downloads/test.txt
+          dest: /home/ubuntu/test.txt
+
+    - name: Make sure apache is started now & at boot
+      service:
+        name: apache2
+        state: started
+        enabled: true
+          
