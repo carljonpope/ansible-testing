@@ -1,18 +1,15 @@
-# App servers
-[app]
-ec2-18-130-243-107.eu-west-2.compute.amazonaws.com
+[centos]
+ec2-3-10-207-167.eu-west-2.compute.amazonaws.com
 
-# DB servers
-[db]
-ec2-18-133-224-175.eu-west-2.compute.amazonaws.com
+[centos:vars]
+ansible_connection=ssh
+ansible_ssh_user=ec2-user
+ansible_ssh_private_key_file=/Users/carl/Documents/myAWSKeyPair.pem
 
-# All servers
-[multi:children]
-app
-db
+[ubuntu]
+ec2-35-177-75-142.eu-west-2.compute.amazonaws.com
 
-# Variables for all servers
-[multi:vars]
+[ubuntu:vars]
 ansible_connection=ssh
 ansible_ssh_user=ubuntu
 ansible_ssh_private_key_file=/Users/carl/Documents/myAWSKeyPair.pem

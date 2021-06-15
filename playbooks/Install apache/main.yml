@@ -1,29 +1,33 @@
 ---
 - name: Install Apache
-  hosts: app
+  hosts: centos
+  become: true
+
+  vars_files:
+    - vars/apache_default.yml
+    - vars/apache_{{ ansible_os_family }}.yml
+
+  handlers:
+    - name: restart apache
+      service:
+        name: "{{ apache_service }}"
+        state: restarted
 
   tasks:
-    - name: Install Apache
-      become: true
-      apt: 
-        name: apache2
+    
+    - name: Ensure Apache is installed
+      package:
+        name: "{{ apache_package }}"
         state: present
 
-    - name: Copy config file
-      become: true
+    - name: Copy test config file.
       copy:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        owner: root
-        group: root
-        mode: 0644
-      with_items:
-        - src: /Users/carl/Downloads/test.txt
-          dest: /home/ubuntu/test.txt
+        src: test.conf
+        dest: "{{ apache_config_dir }}/test.conf"
+      notify: restart apache    
 
     - name: Make sure apache is started now & at boot
       service:
-        name: apache2
+        name: httpd
         state: started
         enabled: true
-          
